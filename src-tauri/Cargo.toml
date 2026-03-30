@@ -1,0 +1,12 @@
+[package]
+name = "openmaic-receiver"
+version = "0.1.0"
+description = "OpenMAIC classroom receiver shell"
+authors = ["OpenMAIC"]
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2" }
+
+[dependencies]
+tauri = { version = "2" }

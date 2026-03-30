@@ -1,0 +1,53 @@
+name: OpenMAIC Receiver Windows Build
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "src-tauri/**"
+      - "receiver-shell-ui/**"
+      - "lib/receiver-shell/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/receiver-shell-windows.yml"
+
+jobs:
+  build-receiver-shell:
+    name: Build OpenMAIC Receiver
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.0
+
+      - name: Setup Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Verify receiver shell tests
+        run: pnpm vitest run tests/server/receiver-shell-config.test.ts tests/server/receiver-shell-ui.test.ts tests/server/receiver-shell-packaging.test.ts
+
+      - name: Build OpenMAIC Receiver
+        run: pnpm receiver:tauri:build
+
+      - name: Upload Windows installer artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: openmaic-receiver-windows
+          path: |
+            src-tauri/target/release/bundle/nsis/*
+            src-tauri/target/release/bundle/msi/*
+          if-no-files-found: warn

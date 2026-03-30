@@ -8,15 +8,19 @@
   },
   "scripts": {
     "postinstall": "cd packages/mathml2omml && npm run build && cd ../pptxgenjs && npm run build",
-    "dev": "next dev",
+    "dev": "next dev --port 6001",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
+    "start": "next start --port 6001",
+    "lint": "eslint && pnpm lint:no-new-any",
+    "lint:no-new-any": "node scripts/check-no-new-any.mjs",
+    "lint:no-new-any:update": "node scripts/check-no-new-any.mjs --update-baseline",
     "check": "prettier . --check",
     "format": "prettier . --write",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "test:e2e:ui": "playwright test --ui"
+    "test:e2e:ui": "playwright test --ui",
+    "receiver:tauri:dev": "pnpm tauri dev --config src-tauri/tauri.conf.json",
+    "receiver:tauri:build": "pnpm tauri build --config src-tauri/tauri.conf.json"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.23",
@@ -103,6 +107,7 @@
     "@rollup/plugin-commonjs": "^28.0.1",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@tailwindcss/postcss": "^4",
+    "@tauri-apps/cli": "^2.10.1",
     "@types/file-saver": "^2.0.7",
     "@types/katex": "^0.16.8",
     "@types/lodash": "^4.17.23",

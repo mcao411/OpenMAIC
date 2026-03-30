@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Default capability for the OpenMAIC receiver shell",
+  "windows": ["main", "receiver"],
+  "permissions": ["core:default"]
+}

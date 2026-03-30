@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OpenMAIC Receiver</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="panel">
+        <div class="eyebrow">Windows Classroom Shell</div>
+        <h1>OpenMAIC Receiver</h1>
+        <p class="subtitle">
+          这是教室电脑用的接收端壳子。填写服务器地址和 roomId 后，打开指定教室的接收页。
+        </p>
+
+        <div class="field">
+          <label for="serverBaseUrl">Server URL</label>
+          <input
+            id="serverBaseUrl"
+            name="serverBaseUrl"
+            type="url"
+            placeholder="http://192.168.1.20:6001"
+          />
+        </div>
+
+        <div class="field">
+          <label for="roomId">Room ID</label>
+          <input id="roomId" name="roomId" type="text" placeholder="room-802" />
+        </div>
+
+        <div class="checkbox-row">
+          <label class="checkbox">
+            <input id="autoFullscreen" type="checkbox" />
+            <span>Receiver window fullscreen</span>
+          </label>
+          <label class="checkbox">
+            <input id="autoLaunch" type="checkbox" />
+            <span>Launch on app startup</span>
+          </label>
+        </div>
+
+        <div class="preview">
+          <div class="preview-label">Receiver URL Preview</div>
+          <div id="receiverUrlPreview" class="preview-value">未配置</div>
+        </div>
+
+        <div id="statusMessage" class="status" role="status"></div>
+
+        <div class="actions">
+          <button id="saveConfigButton" class="btn btn-secondary">保存配置</button>
+          <button id="launchReceiverButton" class="btn btn-primary">打开接收端</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="./main.js"></script>
+  </body>
+</html>
